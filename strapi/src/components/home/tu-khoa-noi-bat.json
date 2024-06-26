@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_tu_khoa_noi_bats",
+  "info": {
+    "displayName": "Từ khóa nổi bật",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "list": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "san_pham_noi_bats",
+  "info": {
+    "singularName": "san-pham-noi-bat",
+    "pluralName": "san-pham-noi-bats",
+    "displayName": "Sản phẩm nổi bật"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "list": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-type.product-type"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.slideshowDots {
+    text-align: center;
+}
+.slideshowDot {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 15px 7px;
+    background-color: var(--gray100);
+    &.active {
+        background-color: var(--orange300);
+    }
+}

@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: digi_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - digi-network
+    environment:
+      - REACT_APP_CHARTBREW_URL=http://localhost:4018
+      - REACT_APP_CHARTBREW_API=http://localhost:4019
+      - REACT_APP_PAYMENT_URL=http://localhost:4020
+      - REACT_APP_BACKEND_URL=http://localhost:4021
+
+  payments:
+    build:
+      context: ./payments
+      dockerfile: Dockerfile
+    container_name: digi_payments
+    ports:
+      - "4020:4020"
+    networks:
+      - digi-network
+    environment:
+      - STRIPE_API_KEY=sk_test_51OaKmGBJV1e9FKaj3upttONFLHRLechUAkUb4Igsj9OS1FdLtcMgYRLKiUozUk4QJY6NcifApV0tFBx32DtREYE400LuNb5s8t
+      - PAYPAL_CLIENTID=Ab-ruL84RIckqjz-F5ETfLGe8EfULEl1cTDVd8XGXny5TwH3HnaOv9xbXPKF361winHqxW7BfrkKsSgg
+      - PAYPAL_CLIENT_SECRET=EGE9ddnSQ1BuGdN7U8Ovq4h1Oy4FitbWG7WD7_PwQ3rQBO5WGQ0ZGOVLIhCUIeAc2vJEtP2AMxtxVd6C
+     
+  strapi:
+    build:
+      context: ./strapi
+      dockerfile: Dockerfile
+    container_name: digi_backend
+    ports:
+      - "4021:4021"
+    networks:
+      - digi-network
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4021
+      - APP_KEYS=1H9GIKvBqirGYUivCzGJbA==,GUugjgm7VMp3br1XCYCv5Q==,nuhQS0XltH4OGDo+iIB9tQ==,msrovgRNBSaR+M5eQrzF/A==
+      - API_TOKEN_SALT=VX1spZjmf1FQMU3uKv1KXg==
+      - ADMIN_JWT_SECRET=cwtpuQiTHzRB9TRklzFwpQ==
+      - TRANSFER_TOKEN_SALT=CyVPRFepvS4Y6vXD9XNatw==
+      - DATABASE_CLIENT=sqlite
+      - DATABASE_FILENAME=.tmp/data.db
+      - JWT_SECRET=g6ssBkQeygdyxEetqcvLgQ==
+      - ENCRYPTION_KEY=fedd0099e293c92a94e1f7cc772c11f5
+  mysql:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE: chartbrewdev
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: 9952811
+      - MYSQL_RANDOM_ROOT_PASSWORD: true
+    volumes:
+      - chartbrew-db:/var/lib/mysql
+
+  chartbrew:
+    build: ./chartbrew
+    restart: unless-stopped
+    env_file: ./chartbrew/.env
+    ports:
+      - 4018:4018 # Frontend
+      - 4019:4019 # API
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+networks:
+  digi-network:
+    driver: bridge

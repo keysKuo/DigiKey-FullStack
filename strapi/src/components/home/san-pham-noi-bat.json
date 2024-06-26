@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_san_pham_noi_bats",
+  "info": {
+    "displayName": "Sản phẩm nổi bật",
+    "icon": "earth"
+  },
+  "options": {},
+  "attributes": {
+    "list": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-type.product-type"
+    }
+  }
+}

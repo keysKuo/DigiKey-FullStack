@@ -1,0 +1,89 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+
+    .prevButton {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 0 100px 100px 0;
+        height: 80px;
+        width: 40px;
+
+        .btnIcon {
+            font-size: 60px;
+            font-weight: 600;
+            color: aliceblue;
+        }
+    }
+
+    .nextButton {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 100px 0 0 100px;
+        height: 80px;
+        width: 40px;
+
+        .btnIcon {
+            font-size: 60px;
+            font-weight: 600;
+            color: aliceblue;
+        }
+    }
+
+    &.activeHover:hover .nextButton,
+    &.activeHover:hover .prevButton {
+        display: flex;
+        cursor: pointer;
+    }
+}
+
+.slideShow {
+    overflow: hidden;
+    
+    &.scrollable {
+        position: relative;
+        overflow-x: scroll;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .slides {
+        // width: 100%;
+        // overflow-x: scroll;
+        // display: grid;
+        // grid-template-columns: auto;
+        // grid-auto-flow: column;
+        // grid-template-rows: auto auto;
+        // gap: 10px;
+        // padding: 0 5px;
+        // -ms-overflow-style: none; /* IE and Edge */
+        // scrollbar-width: none; /* Firefox */
+        // &::-webkit-scrollbar {
+        //     display: none;
+        // }
+
+        // max-height: 926px;
+        // display: flex;
+        // flex-flow: column wrap;
+        // padding: 0 5px;
+        // gap: 10px;
+
+        transition: ease 1000ms;
+    }
+}
