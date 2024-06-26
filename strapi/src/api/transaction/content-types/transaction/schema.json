@@ -15,11 +15,6 @@
     "transactionId": {
       "type": "string"
     },
-    "customer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::customer.customer"
-    },
     "total": {
       "type": "integer"
     },
@@ -38,10 +33,24 @@
         "cancelled"
       ]
     },
+    "email": {
+      "type": "email"
+    },
+    "paymentId": {
+      "type": "customField",
+      "options": {
+        "hint": "",
+        "roles": [
+          "1",
+          "id"
+        ]
+      },
+      "customField": "plugin::encryptable-field.encryptable-field"
+    },
     "products": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product-type.product-type"
+      "type": "component",
+      "repeatable": true,
+      "component": "cart.cart-item"
     }
   }
 }

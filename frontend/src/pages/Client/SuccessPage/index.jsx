@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LuCheck, LuCheckCircle } from 'react-icons/lu';
 import { Link, useParams } from 'react-router-dom';
+import { GET_checkPaymentDetail } from '../../../services/payments';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { PUT_completeTransaction } from '../../../services/transactions';
+import useFetch from '../../../hooks/useFetch';
 
 export default function SuccessPage() {
     const { transactionId } = useParams();
+    const { fetch, error, loading } = useFetch();
+
+    useEffect(() => {
+        const completeTransaction = async (id) => {
+            const options = PUT_completeTransaction(id);
+            await fetch(options);
+            if (!error) {
+                toast("🚀 Đơn hàng đã được thanh toán");
+            }
+        }
+
+        const checkPaymentDetails = async () => {
+            const options = GET_checkPaymentDetail(transactionId);
+            await axios.request(options)
+                .then(response => response.data)
+                .then(result => {
+                    const { transaction } = result;
+                    completeTransaction(transaction.id);
+                })
+                .catch(err => toast("Đã có lỗi xãy ra"));
+        }
+
+        checkPaymentDetails();
+    }, [])
 
     return (
         <>

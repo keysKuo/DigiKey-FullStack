@@ -1,7 +1,7 @@
 import toQueryString from '../../utils/strapiQuery';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const PAYMENT_URL = process.env.REACT_APP_PAYMENT_URL;
+
 
 const POST_createTransaction = (data) => {
     return {
@@ -33,16 +33,21 @@ const GET_checkTransaction = (id) => {
     };
 }
 
-const POST_createPayment = (paymentType, products, total, transactionId) => {
+const PUT_completeTransaction = (id) => {
     return {
-        url: `${PAYMENT_URL}/payments/v1/checkout`,
-        method: 'POST',
+        url: `${BACKEND_URL}/api/transactions/${id}`,
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        data: JSON.stringify({paymentType, products, total, transactionId})
+        data: {
+            data: {
+                status: "completed"
+            }
+        }
     }
 }
 
 
-export { POST_createTransaction, GET_checkTransaction, POST_createPayment };
+
+export { POST_createTransaction, GET_checkTransaction, PUT_completeTransaction };

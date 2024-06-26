@@ -1075,19 +1075,19 @@ export interface ApiTransactionTransaction extends Schema.CollectionType {
   };
   attributes: {
     transactionId: Attribute.String;
-    customer: Attribute.Relation<
-      'api::transaction.transaction',
-      'oneToOne',
-      'api::customer.customer'
-    >;
     total: Attribute.Integer;
     paymentType: Attribute.Enumeration<['paypal', 'stripe']>;
     status: Attribute.Enumeration<['pending', 'completed', 'cancelled']>;
-    products: Attribute.Relation<
-      'api::transaction.transaction',
-      'oneToMany',
-      'api::product-type.product-type'
-    >;
+    email: Attribute.Email;
+    paymentId: Attribute.Text &
+      Attribute.CustomField<
+        'plugin::encryptable-field.encryptable-field',
+        {
+          hint: '';
+          roles: ['1', 'id'];
+        }
+      >;
+    products: Attribute.Component<'cart.cart-item', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

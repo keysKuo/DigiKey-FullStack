@@ -1,7 +1,8 @@
 const express = require('express');
-const { exchangeRate, createPaypalSession, createStripeSession, sendMail, mailForm } = require('../services');
+const { exchangeRate, createPaypalSession, createStripeSession, sendMail, mailForm, getPaymentDetails } = require('../services');
 const configs = require('../configs');
 const router = express.Router();
+const axios = require('axios');
 
 router.post('/checkout', async (req, res, next) => {
     const { paymentType, products, total, transactionId } = req.body;
@@ -20,14 +21,14 @@ router.post('/checkout', async (req, res, next) => {
         cancel_url: `${configs['frontendURL']}/cart`,
     };
 
-    let session_url = '';
+    let payment = {};
 
     switch (paymentType) {
         case 'stripe':
-            session_url = await createStripeSession(options);
+            payment = await createStripeSession(options);
             break;
         case 'paypal':
-            session_url = await createPaypalSession(options);
+            payment = await createPaypalSession(options);
             break;
         default:
             return res.status(403).json({
@@ -36,7 +37,7 @@ router.post('/checkout', async (req, res, next) => {
             });
     }
 
-    if (!session_url) {
+    if (!payment) {
         return res.status(500).json({
             success: false,
             msg: 'Tạo phiên thanh toán thất bại',
@@ -45,7 +46,7 @@ router.post('/checkout', async (req, res, next) => {
 
     return res.status(200).json({
         success: true,
-        session_url,
+        payment,
         msg: 'Tạo phiên thanh toán thành công',
     });
 })
@@ -66,6 +67,56 @@ router.post('/sendmail', async (req, res, next) => {
                 `,
         }),
     });
+})
+
+router.get('/payment-details/:transactionId', async (req, res, next) => {
+    const { transactionId } = req.params;
+
+    const options = {
+        url: `http://127.0.0.1:4021/api/transactions?filters[transactionId][$eq]=${transactionId}`,
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const transaction = await axios.request(options)
+        .then(response => response.data.data)
+        .then(result => {
+            // console.log(result);
+            if (result.length !== 0) {
+                return {
+                    ...result[0].attributes, id: result[0].id
+                };
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+    if (!transaction) {
+        return res.status(404).json({
+            success: false,
+            msg: 'Giao dịch không tồn tại'
+        })
+    }
+        
+    return await getPaymentDetails(transaction.paymentType, transaction.paymentId)
+        .then(payment => {
+            return res.status(200).json({
+                success: true,
+                msg: 'Giao dịch đã thành công',
+                payment,
+                transaction
+            });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                success: false,
+                msg: 'Giao dịch thất bại',
+                msg: err
+            });
+        })
 })
 
 module.exports = router;

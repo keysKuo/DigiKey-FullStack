@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --inspect server.js"
+    "dev": "nodemon --inspect server.js",
+    "payments": "nodemon --inspect server.js",
+    "strapi": "cd strapi && npm run develop",
+    "chart-client": "cd chartbrew && npm run client",
+    "chart-api": "cd chartbrew && npm run server",
+    "client": "cd frontend && npm start"
   },
   "author": "",
   "license": "ISC",
