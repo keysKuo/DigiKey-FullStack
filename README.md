@@ -1,8 +1,20 @@
 # About the project:
 
-**The project is built on the idea of optimizing SQL query statements. Its goal is to enhance query optimization by leveraging large language models (LLMs). The primary model applied in the project is Llama3, integrated with several techniques to support visual query analysis. Through various extensions, the project aims to directly execute SQL statements and visualize them using different types of charts.**
+---
 
-### **Project Name: Hệ thống kinh doanh phần mềm kĩ thuật số hướng Microservices**
+**Project DigiKey: Revolutionizing Digital Software Commerce**
+
+Welcome to DigiKey, a cutting-edge online platform designed for the seamless buying and selling of digital software. Our project, DigiKey, leverages a microservices architecture to deliver a robust, scalable, and efficient solution tailored to the needs of digital software businesses.
+
+**Key Features:**
+
+- **Warehouse Management with Strapi**: Our backend service utilizes Strapi to provide a flexible and powerful content management system, ensuring efficient and secure handling of your digital products.
+- **Statistics and Visualization with Chartbrew**: Harness the power of data with our integrated Chartbrew service, offering comprehensive statistics and visualization tools to help you make informed business decisions.
+- **Payment Gateways**: Enjoy smooth and secure transactions with our support for leading payment gateways like Stripe and PayPal, ensuring a seamless checkout experience for your customers.
+- **Client App with ReactJS**: Our user-friendly client application, built on ReactJS, provides a dynamic and responsive interface, enhancing user experience and engagement.
+
+---
+
 
 ### **Services:**
 
@@ -16,6 +28,26 @@
 <p><a href="http://localhost:3000">DEMO</a></p>
 </div>
 
+# Features:
+- `Searching` - Searching for products
+- `Preview` - Preview product information
+- `Cart` - Handling items in cart 
+- `Express Checkout`
+    - Checkout through payment gateways such as: Stripe, Paypal,...
+    - Click & Buy with only email
+- `Management` 
+    - Manage authorization by role of admin account
+    - Manage the system warehouse
+    - Manage upload medias
+    - Manage API, Webhooks, Extensions, Third-party,...
+
+<div align="center">
+<img src="frontend/public/manage-product.png" alt="..." />
+</div>
+
+- `Visualization` - Statistic transaction through graph visualization
+
+
 # Environment:
 
 Setup `.env-template`
@@ -28,7 +60,7 @@ CB_DB_PASSWORD_DEV= [Password]
 
 # Installation:
 
-```shell
+```bash
 # Clone source code từ github
 git clone https://github.com/keysKuo/DigiKey-FullStack.git
 
@@ -54,7 +86,7 @@ npm install
 
 # Run app:
 
-```shell
+```bash
 # Từ thư mục gốc
 # Chạy frontend (PORT 3000)
 npm run client
@@ -71,3 +103,4 @@ npm run chart-client
 # Chạy chart api (PORT 4019)
 npm run chart-api
 ```
+
