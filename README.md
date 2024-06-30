@@ -55,7 +55,8 @@ Welcome to DigiKey, a cutting-edge online platform designed for the seamless buy
 -   [![PayPal][PayPal]][PayPal-url]
 
 # Functions:
-- Stripe service: 
+
+-   Stripe service:
 
 ```javascript
 const createStripeSession = async (options) => {
@@ -98,6 +99,71 @@ const createStripeSession = async (options) => {
 			paymentId: session.id,
 			url: session.url,
 		};
+	} catch (error) {
+		console.log(error);
+		return undefined;
+	}
+};
+```
+
+-   PayPal service:
+
+```javascript
+const createPaypalSession = async (options) => {
+	try {
+		const { success_url, cancel_url, items, total } = options;
+		const create_payment_json = {
+			intent: "sale",
+			payer: {
+				payment_method: "paypal",
+			},
+			redirect_urls: {
+				return_url: success_url,
+				cancel_url: cancel_url,
+			},
+			transactions: [
+				{
+					item_list: {
+						items: items.map((item) => {
+							return {
+								...item,
+								price: item.price.toFixed(2),
+								currency: "USD",
+							};
+						}),
+					},
+					amount: {
+						currency: "USD",
+						total: total.toFixed(2),
+					},
+					description: "SUD payment gateway test",
+				},
+			],
+		};
+
+		const payment = await new Promise((resolve, reject) => {
+			paypal.payment.create(
+				create_payment_json,
+				function (error, payment) {
+					if (error) {
+						console.log(error.response.details);
+						reject(error);
+					} else {
+						// console.log(payment)
+						resolve(payment);
+					}
+				}
+			);
+		});
+
+		for (let i = 0; i < payment.links.length; i++) {
+			if (payment.links[i].rel === "approval_url") {
+				return {
+					paymentId: payment.id,
+					url: payment.links[i].href,
+				};
+			}
+		}
 	} catch (error) {
 		console.log(error);
 		return undefined;
