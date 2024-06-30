@@ -7,16 +7,16 @@
   },
   "options": {},
   "attributes": {
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product-type.product-type"
-    },
     "qty": {
       "type": "integer"
     },
     "name": {
       "type": "string"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
     }
   }
 }

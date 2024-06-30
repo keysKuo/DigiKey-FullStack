@@ -8,13 +8,13 @@ export interface CartCartItem extends Schema.Component {
     description: '';
   };
   attributes: {
-    product: Attribute.Relation<
-      'cart.cart-item',
-      'oneToOne',
-      'api::product-type.product-type'
-    >;
     qty: Attribute.Integer;
     name: Attribute.String;
+    items: Attribute.Relation<
+      'cart.cart-item',
+      'oneToMany',
+      'api::product.product'
+    >;
   };
 }
 
