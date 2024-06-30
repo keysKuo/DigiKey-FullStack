@@ -5,7 +5,7 @@
   "main": "index.js",
   "workspaces": [],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specifcdied\" && exit 1",
     "setup": "npm run prepareSettings && npm install && cd client && npm install && cd ../server/ && npm install",
     "prepareSettings": "echo n | cp -vipr .env-template .env | true && cd client && echo n | cp -vipr src/config/settings.template.js src/config/settings.js | true",
     "client": "cd client && npm start",

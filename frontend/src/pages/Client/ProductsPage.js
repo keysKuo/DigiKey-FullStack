@@ -109,6 +109,7 @@ function ProductsPage(props) {
                                 name={product.name}
                                 link={product.url}
                                 price={product.originPrice}
+                                sellPrice={product.sellPrice}
                                 discount={product.discount}
                                 img={product.img}
                                 status={product.status}

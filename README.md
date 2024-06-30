@@ -5,19 +5,20 @@
 ### **Project Name: Hệ thống kinh doanh phần mềm kĩ thuật số hướng Microservices**
 
 ### **Services:**
-- ``Frontend`` - React WebApp (Hệ thống bán phần mềm bản quyên DigiKey)
-- ``Warehouse`` - Strapi (Module Service trang quản lý và lưu trữ dữ liệu)
-- ``Payments`` - ExpressJs (Module Service các cộng thanh toán Stripe, Paypal, ...)
-- ``Visualization`` - ChartBrew (Module Service trực quan hóa dữ liệu bằng đồ thị và thống kê)
+
+-   `Frontend` - React WebApp (Hệ thống bán phần mềm bản quyên DigiKey)
+-   `Warehouse` - Strapi (Module Service trang quản lý và lưu trữ dữ liệu)
+-   `Payments` - ExpressJs (Module Service các cộng thanh toán Stripe, Paypal, ...)
+-   `Visualization` - ChartBrew (Module Service trực quan hóa dữ liệu bằng đồ thị và thống kê)
 
 <div align="center">
-<img src="frontend/public/Llama3Visualization-ezgif.com-video-to-gif-converter.gif" alt="..." />
+<img src="frontend/public/DigiKey-ezgif.com-video-to-gif-converter.gif" alt="..." />
 <p><a href="http://localhost:3000">DEMO</a></p>
 </div>
 
 # Environment:
 
-Setup ``.env-template`` 
+Setup `.env-template`
 
 ```shell
 CB_DB_NAME_DEV= [Tên Database]
@@ -53,7 +54,7 @@ npm install
 
 # Run app:
 
-```shell 
+```shell
 # Từ thư mục gốc
 # Chạy frontend (PORT 3000)
 npm run client
@@ -70,5 +71,3 @@ npm run chart-client
 # Chạy chart api (PORT 4019)
 npm run chart-api
 ```
-
-

@@ -5,7 +5,7 @@ import styles from './ProductCard.module.scss';
 import { formatCash } from '../../../utils/helpers';
 
 function ProductCard(props) {
-    const { name, price, discount, img, link = '/search/featured', status } = props;
+    const { name, price, sellPrice, discount, img, link = '/search/featured', status } = props;
     return (
         <Link to={link} className="rounded-xl relative py-2">
             <img
@@ -21,7 +21,7 @@ function ProductCard(props) {
             <div className="py-3 text-[14px]">
                 <p className={clsx(styles.name)}>{name}</p>
                 <div className="flex gap-[5px] flex-wrap items-center">
-                    <p className="font-bold">{formatCash(price - (price * discount) / 100)}</p>
+                    <p className="font-bold">{formatCash(sellPrice)}</p>
                     <p className="line-through text-gray-300">{formatCash(price)}</p>
                     <div className="bg-red-300 text-white text-[12.25px] font-semibold p-[3.25px] rounded-lg">{`-${discount}%`}</div>
                 </div>

@@ -58,6 +58,7 @@ function HomePage() {
                                                 name={product.typeName}
                                                 link={`/san-pham/${product.slug}`}
                                                 price={product.originalPrice}
+                                                sellPrice={product.sellPrice}
                                                 discount={
                                                     100 - Math.floor((product.sellPrice / product.originalPrice) * 100)
                                                 }
@@ -80,7 +81,7 @@ function HomePage() {
                                     return (
                                         <Link
                                             key={index}
-                                            style={{ backgroundColor: color}}
+                                            style={{ backgroundColor: color }}
                                             to={'/search/featured'}
                                             className={`rounded-xl text-center py-8 px-2 sm:p-[3px] 2sm:p-[3px] sm:text-[10px] text-white`}
                                         >
@@ -89,7 +90,7 @@ function HomePage() {
                                     );
                                 })}
                             </Section>
-                            
+
                             {/* Sản phẩm theo từng danh mục */}
                             {categories?.map((category, index) => {
                                 return (
@@ -104,6 +105,7 @@ function HomePage() {
                                                         name={product.typeName}
                                                         link={`/san-pham/${product.slug}`}
                                                         price={product.originalPrice}
+                                                        sellPrice={product.sellPrice}
                                                         discount={
                                                             100 -
                                                             Math.floor(
