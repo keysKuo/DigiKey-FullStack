@@ -47,6 +47,17 @@ Welcome to DigiKey, a cutting-edge online platform designed for the seamless buy
 
 - `Visualization` - Statistic transaction through graph visualization
 
+# Built with:
+
+* [![Nodejs][Node.js]][Node-url]
+* [![ExpressJS][Express.js]][Express-url]
+* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
+* [![React.js][React.js]][React-url]
+* [![Strapi][Strapi]][Strapi-url]
+* [![ChartBrew][ChartBrew]][ChartBrew-url]
+* [![Stripe][Stripe]][Stripe-url]
+* [![PayPal][PayPal]][PayPal-url]
+
 
 # Environment:
 
@@ -104,3 +115,21 @@ npm run chart-client
 npm run chart-api
 ```
 
+
+
+[TailwindCSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[TailwindCSS-url]: https://tailwindcss.com
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/
+[Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
+[Express-url]: https://expressjs.com/
+[Strapi]: https://img.shields.io/badge/-Strapi-4945FF?style=for-the-badge&logo=strapi&logoColor=white
+[Strapi-url]: https://docs.strapi.io/
+[ChartBrew]: https://img.shields.io/badge/ChartBrew-E76F51?style=for-the-badge&logo=chartbrew&logoColor=white
+[ChartBrew-url]: https://chartbrew.com/
+[Stripe]: https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white
+[Stripe-url]: https://docs.stripe.com/
+[PayPal]: https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white
+[PayPal-url]: https://docs.stripe.com/
