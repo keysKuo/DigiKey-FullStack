@@ -14,8 +14,8 @@ const GET_productTypeDetail = (slug) => {
                 fields: ['url'],
             },
             category: {
-                fields: ['categoryName']
-            }
+                fields: ['categoryName'],
+            },
         },
         fields: ['typeName', 'typeId', 'originalPrice', 'sellPrice', 'status', 'slug'],
     };
@@ -61,12 +61,12 @@ const GET_searchProductTypes = (keyword) => {
                 fields: ['url'],
             },
             category: {
-                fields: ['categoryName']
-            }
+                fields: ['categoryName'],
+            },
         },
         fields: ['typeName', 'typeId', 'originalPrice', 'sellPrice', 'status', 'slug'],
     };
-    
+
     return {
         url: `${BACKEND_URL}/api/${toQueryString('product-types', json)}`,
         method: 'GET',
@@ -76,5 +76,36 @@ const GET_searchProductTypes = (keyword) => {
     };
 };
 
+const GET_remainInStorage = (productId, qty) => {
+    const json = {
+        filters: {
+            productType: {
+                $eq: productId,
+            },
+            status: {
+                $eq: 'available',
+            },
+        },
+        fields: ['productId', 'expiry', 'status'],
+        pagination: {
+            pageSize: qty,
+            page: 1,
+        },
+    };
 
-export { GET_productTypes, GET_productTypeDetail, GET_relevantProductTypes, GET_searchProductTypes };
+    return {
+        url: `${BACKEND_URL}/api/${toQueryString('products', json)}`,
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+};
+
+export {
+    GET_productTypes,
+    GET_productTypeDetail,
+    GET_relevantProductTypes,
+    GET_searchProductTypes,
+    GET_remainInStorage,
+};

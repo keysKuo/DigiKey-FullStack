@@ -10,9 +10,11 @@ import useFetch from '../../../hooks/useFetch';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { TextInput } from 'flowbite-react';
+import { GET_remainInStorage } from '../../../services/products';
+import { LuArrowLeft } from 'react-icons/lu';
 
 function CartPage(props) {
-    const { cartItems, clearCart } = useCartContext();
+    const { cartItems, setCartItems, clearCart } = useCartContext();
     const { fetch, error } = useFetch();
     const [stage, setStage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -30,6 +32,8 @@ function CartPage(props) {
                 return setTotalProductPrice((prev) => (prev += item.sellPrice * item.qty));
             });
         }
+
+        // console.log(cartItems)
     }, [cartItems]);
 
     const onSelectPayment = (paymentType) => {
@@ -37,6 +41,19 @@ function CartPage(props) {
             toast('❌ Vui lòng điền email mua hàng');
             return;
         }
+
+        const checkStorage = async (productId, qty) => {
+            const options = GET_remainInStorage(productId, qty);
+            const result = await fetch(options);
+            return result.length == qty ? result.map(r => r.id) : []
+        }
+  
+        const updatedCartItems = JSON.parse(JSON.stringify(cartItems));
+        cartItems.forEach(async (item, index) => {
+            const remains = await checkStorage(item.id, item.qty);
+            updatedCartItems[index]['remains'] = remains;
+            await setCartItems(updatedCartItems);
+        })
 
         setPaymentType(paymentType);
         setStage(2);
@@ -53,7 +70,7 @@ function CartPage(props) {
                     paymentId: paymentId,
                     status: 'pending',
                     products: cartItems.map((item) => {
-                        return { name: item.typeName, product: item.id, qty: item.qty };
+                        return { name: item.typeName, items: item.remains, qty: item.qty };
                     }),
                 },
             };
@@ -90,6 +107,11 @@ function CartPage(props) {
                     setLoading(false);
                 });
         };
+
+        if(cartItems.find(item => item.remains.length == 0)) {
+            toast("❌ Một số sản phẩm hết hàng")
+            return;
+        }
 
         createPayment();
     };
@@ -241,6 +263,12 @@ function CartPage(props) {
                                             >
                                                 <FaCreditCard />
                                                 <p>Xác nhận thanh toán</p>
+                                            </div>
+                                            <div
+                                                onClick={() => setStage(1)}
+                                                className="p-4 cursor-pointer text-white bg-red-400 hover:opacity-80 rounded-xl flex items-center justify-center gap-3"
+                                            >
+                                                <p>Trở lại</p>
                                             </div>
                                         </>
                                     ) : (
